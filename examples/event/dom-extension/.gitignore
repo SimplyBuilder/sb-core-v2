@@ -1,0 +1,6 @@
+*
+
+!/.gitignore
+
+!/dom-extension.ts
+!/package.json

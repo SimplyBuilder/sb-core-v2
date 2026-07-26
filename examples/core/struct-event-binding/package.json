@@ -1,0 +1,7 @@
+{
+  "name": "example-core-struct-event-binding",
+  "private": true,
+  "dependencies": {
+    "@simplybuilder/core": "workspace:*"
+  }
+}

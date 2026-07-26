@@ -1,0 +1,13 @@
+*
+
+!/.gitignore
+!/index.html
+
+!/package.json
+!/tsconfig.json
+!/vite.config.ts
+!/src/
+!/src/main.ts
+
+/src/**/*.d.ts
+/src/**/*.js

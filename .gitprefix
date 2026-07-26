@@ -1,0 +1,18 @@
+commit {
+    :sparkles: feat
+    :hammer: fix
+    :adhesive_bandage: fix
+    :recycle: refactor
+    :wrench: chore
+    :books: docs
+    :art: style
+    :rocket: perf
+    :construction_worker: ci
+    :building_construction: build
+    :white_check_mark: test
+    :pushpin: revert
+}
+
+tag {
+    :bookmark: tag
+}

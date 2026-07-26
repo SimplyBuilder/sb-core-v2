@@ -1,0 +1,6 @@
+*
+
+!/.gitignore
+
+!/create-struct.ts
+!/package.json

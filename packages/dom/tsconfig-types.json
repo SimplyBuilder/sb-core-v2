@@ -1,0 +1,12 @@
+{
+  "extends": "./tsconfig.json",
+  "files": [
+    "src/core-dom.ts"
+  ],
+  "compilerOptions": {
+    "outDir": "lib",
+    "declarationDir": "lib",
+    "declaration": true,
+    "emitDeclarationOnly": true
+  }
+}

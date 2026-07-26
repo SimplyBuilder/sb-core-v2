@@ -1,0 +1,7 @@
+{
+  "name": "example-core-dom-shadow-dom",
+  "private": true,
+  "dependencies": {
+    "@simplybuilder/core-dom": "workspace:*"
+  }
+}

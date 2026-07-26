@@ -1,0 +1,10 @@
+*
+
+!/.gitignore
+
+!/dom-extension/
+!/dom-extension/.gitignore
+!/register-action/
+!/register-action/.gitignore
+!/store-attach/
+!/store-attach/.gitignore

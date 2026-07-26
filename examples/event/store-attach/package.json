@@ -1,0 +1,7 @@
+{
+  "name": "example-core-event-store-attach",
+  "private": true,
+  "dependencies": {
+    "@simplybuilder/core-event": "workspace:*"
+  }
+}

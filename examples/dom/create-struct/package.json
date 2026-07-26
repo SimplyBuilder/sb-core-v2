@@ -1,0 +1,7 @@
+{
+  "name": "example-core-dom-create-struct",
+  "private": true,
+  "dependencies": {
+    "@simplybuilder/core-dom": "workspace:*"
+  }
+}

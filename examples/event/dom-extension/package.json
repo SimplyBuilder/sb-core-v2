@@ -1,0 +1,8 @@
+{
+  "name": "example-core-event-dom-extension",
+  "private": true,
+  "dependencies": {
+    "@simplybuilder/core-event": "workspace:*",
+    "@simplybuilder/core-dom": "workspace:*"
+  }
+}

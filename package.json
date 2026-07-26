@@ -1,0 +1,21 @@
+{
+  "name": "simplybuilder-core",
+  "private": true,
+  "version": "0.1.0",
+  "packageManager": "pnpm@9.0.0",
+  "homepage": "https://simplybuilder.github.io",
+  "scripts": {
+    "build": "pnpm -r --filter=\"./packages/*\" build",
+    "test": "pnpm -r test",
+    "clean": "pnpm -r clean"
+  },
+  "devDependencies": {
+    "@rollup/plugin-node-resolve": "^16.0.3",
+    "@rollup/plugin-replace": "^6.0.3",
+    "@rollup/plugin-terser": "^1.0.0",
+    "@vitest/browser": "^3.0.0",
+    "rollup": "^4.62.2",
+    "typescript": "^5.7.0",
+    "vitest": "^3.0.0"
+  }
+}

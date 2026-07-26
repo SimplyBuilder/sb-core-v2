@@ -1,0 +1,6 @@
+*
+
+!/.gitignore
+
+!/register-action.ts
+!/package.json

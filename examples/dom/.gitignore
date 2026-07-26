@@ -1,0 +1,12 @@
+*
+
+!/.gitignore
+
+!/create-struct/
+!/create-struct/.gitignore
+!/element-storage/
+!/element-storage/.gitignore
+!/shadow-dom/
+!/shadow-dom/.gitignore
+!/svg-creation/
+!/svg-creation/.gitignore

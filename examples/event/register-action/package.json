@@ -1,0 +1,7 @@
+{
+  "name": "example-core-event-register-action",
+  "private": true,
+  "dependencies": {
+    "@simplybuilder/core-event": "workspace:*"
+  }
+}

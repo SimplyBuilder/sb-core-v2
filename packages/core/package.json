@@ -1,0 +1,59 @@
+{
+  "name": "@simplybuilder/core",
+  "version": "2.0.0",
+  "main": "lib/main.commonjs.min.cjs",
+  "module": "lib/main.esm.min.mjs",
+  "types": "lib/sb-core.d.ts",
+  "typings": "lib/sb-core.d.ts",
+  "exports": {
+    "./commonjs-module": {
+      "require": "./lib/main.commonjs.min.cjs"
+    },
+    "./esm-module": {
+      "import": "./lib/main.esm.min.mjs"
+    },
+    "./dts": {
+      "types": "./lib/main.d.ts"
+    },
+    "./sb-core": {
+      "types": "./lib/sb-core.d.ts"
+    },
+    ".": {
+      "types": "./lib/main.d.ts",
+      "import": "./lib/main.esm.min.mjs",
+      "require": "./lib/main.commonjs.min.cjs"
+    }
+  },
+  "files": [
+    "AUTHORS",
+    "CONTRIBUTING.md",
+    "GOVERNANCE.md",
+    "MAINTAINERS.md",
+    "lib/main.commonjs.cjs",
+    "lib/main.commonjs.min.cjs",
+    "lib/main.esm.min.mjs",
+    "lib/main.esm.mjs",
+    "lib/**/*.d.ts"
+  ],
+  "scripts": {
+    "clean": "rm -rf lib && rm -rf audit",
+    "build:js": "tsc -p tsconfig-audit.json",
+    "build:types": "tsc -p tsconfig-types.json",
+    "build:pre": "pnpm run clean && pnpm run build:js && pnpm run build:types",
+    "build:deps": "cd ../event && pnpm build && cd ../dom && pnpm build",
+    "build": "pnpm run build:deps && pnpm run build:pre && rollup -c ./rollup.config.js ",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@simplybuilder/core-dom": "workspace:*",
+    "@simplybuilder/core-event": "workspace:*"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.0",
+    "vitest": "^3.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "license": "MIT"
+}

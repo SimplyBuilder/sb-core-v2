@@ -1,0 +1,7 @@
+*
+
+!/.gitignore
+
+!/struct-event-binding.ts
+!/package.json
+

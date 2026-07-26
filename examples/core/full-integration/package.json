@@ -1,0 +1,7 @@
+{
+  "name": "example-core-full-integration",
+  "private": true,
+  "dependencies": {
+    "@simplybuilder/core": "workspace:*"
+  }
+}

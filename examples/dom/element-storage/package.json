@@ -1,0 +1,7 @@
+{
+  "name": "example-core-dom-element-storage",
+  "private": true,
+  "dependencies": {
+    "@simplybuilder/core-dom": "workspace:*"
+  }
+}

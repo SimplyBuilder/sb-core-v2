@@ -1,0 +1,7 @@
+{
+  "name": "example-core-dom-svg-creation",
+  "private": true,
+  "dependencies": {
+    "@simplybuilder/core-dom": "workspace:*"
+  }
+}

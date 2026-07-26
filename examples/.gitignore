@@ -1,0 +1,10 @@
+*
+
+!/.gitignore
+
+!/core/
+!/core/.gitignore
+!/dom/
+!/dom/.gitignore
+!/event/
+!/event/.gitignore

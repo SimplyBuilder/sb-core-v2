@@ -1,0 +1,6 @@
+*
+
+!/.gitignore
+
+!/shadow-dom.ts
+!/package.json
