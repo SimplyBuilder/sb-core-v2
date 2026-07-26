@@ -27,12 +27,11 @@ jobs:
           run_install: false
       - uses: actions/checkout@v6
       - name: Use Node.js ${{ matrix.node }}
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v7
         with:
           node-version: ${{ matrix.node }}
           registry-url: 'https://registry.npmjs.org'
           scope: '@simplybuilder'
-          persist-credentials: false
       - name: Install dependencies
         run: pnpm install
       - name: Publish Packages
