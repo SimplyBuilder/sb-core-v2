@@ -1,0 +1,41 @@
+name: Node.js Package Publish
+
+on:
+  workflow_dispatch:
+
+env:
+  CARGO_TERM_COLOR: always
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  build:
+    if: github.repository == 'SimplyBuilder/sb-core-v2'
+    strategy:
+      matrix:
+        node: [24]
+        runs-on: [ubuntu-latest]
+    runs-on: ${{ matrix.runs-on }}
+
+    steps:
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+          run_install: false
+      - uses: actions/checkout@v6
+      - name: Use Node.js ${{ matrix.node }}
+        uses: actions/setup-node@v6
+        with:
+          node-version: ${{ matrix.node }}
+          registry-url: 'https://registry.npmjs.org'
+          scope: '@simplybuilder'
+          persist-credentials: false
+      - name: Install dependencies
+        run: pnpm install
+      - name: Publish Packages
+        run: pnpm run publish:modules
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

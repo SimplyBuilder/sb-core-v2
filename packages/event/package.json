@@ -46,6 +46,25 @@
     "publish:pack": "pnpm build && tar tvf $(npm pack)",
     "prepublishOnly": "pnpm run publish:pre"
   },
+  "homepage": "https://simplybuilder.github.io",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SimplyBuilder/sb-core-v2.git"
+  },
+  "bugs": {
+    "url": "https://github.com/SimplyBuilder/sb-core-v2/issues"
+  },
+  "author": "Jamil Services <jamilservicos@gmail.com> (https://github.com/jamilservicos)",
+  "funding": [
+    {
+      "type" : "kofi",
+      "url" : "https://ko-fi.com/juliojamil"
+    },
+    {
+      "type" : "github",
+      "url" : "https://github.com/sponsors/jamilservicos"
+    }
+  ],
   "devDependencies": {
     "jsdom": "^26.0.0",
     "typescript": "^5.7.0",
@@ -54,5 +73,24 @@
   "engines": {
     "node": ">=18.0.0"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "keywords": [
+    "jamilservicos",
+    "jamilservices",
+    "node",
+    "nodejs",
+    "node.js",
+    "javascript",
+    "typescript",
+    "simply-builder",
+    "simplybuilder",
+    "simply",
+    "builder",
+    "module",
+    "core",
+    "front",
+    "frontend",
+    "front-end",
+    "event"
+  ]
 }
