@@ -1,4 +1,4 @@
-name: Node.js Package Publish
+name: Node.js Package Test
 
 on:
   workflow_dispatch:
