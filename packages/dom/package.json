@@ -41,7 +41,10 @@
     "build:types": "tsc -p tsconfig-types.json",
     "build:pre": "pnpm run clean && pnpm run build:js && pnpm run build:types",
     "build": "pnpm run build:pre && rollup -c ./rollup.config.js ",
-    "test": "vitest run"
+    "test": "vitest run",
+    "publish:pre": "pnpm build && pnpm test",
+    "publish:pack": "pnpm build && tar tvf $(npm pack)",
+    "prepublishOnly": "pnpm run publish:pre"
   },
   "devDependencies": {
     "jsdom": "^26.0.0",
