@@ -1,6 +1,6 @@
 {
   "name": "@simplybuilder/core-dom",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "main": "lib/main.commonjs.min.cjs",
   "module": "lib/main.esm.min.mjs",
   "types": "lib/core-dom.d.ts",
