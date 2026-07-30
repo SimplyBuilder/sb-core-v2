@@ -9,6 +9,8 @@
     "clean": "pnpm -r clean",
     "publish:test": "pnpm publish -r --dry-run --no-git-checks",
     "publish:modules": "pnpm publish -r --no-git-checks --access public",
+    "publish:dom": "pnpm publish --filter @simplybuilder/core-dom --filter @simplybuilder/core --no-git-checks --access public",
+    "publish:event": "pnpm publish --filter @simplybuilder/core-event --filter @simplybuilder/core --no-git-checks --access public",
     "example:shadow-struct": "pnpm --filter example-dom-shadow-struct dev"
   },
   "homepage": "https://simplybuilder.github.io",
