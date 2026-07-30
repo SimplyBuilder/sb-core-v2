@@ -1,5 +1,15 @@
 # Changelog
 
+## v2.0.1
+
+### 🩹 Fixes
+
+- **dom-module:** Fix children placement inside closed shadow root via DomStore lookup (71ca5e0)
+
+### ❤️ Contributors
+
+- JamilServices <jamilservicos@gmail.com>
+
 ## v2.0.0
 
 ### ⚠️ Breaking Changes

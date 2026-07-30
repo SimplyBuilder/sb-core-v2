@@ -1,5 +1,17 @@
 # Changelog
 
+## v0.1.1
+
+[compare changes](https://github.com/SimplyBuilder/sb-core-v2/compare/v0.1.0...v0.1.1)
+
+### 🩹 Fixes
+
+- **dom-module:** Fix children placement inside closed shadow root via DomStore lookup ([71ca5e0](https://github.com/SimplyBuilder/sb-core-v2/commit/71ca5e0))
+
+### ❤️ Contributors
+
+- JamilServices <jamilservicos@gmail.com>
+
 ## v0.1.0
 
 ### ⚠️ Breaking Changes
