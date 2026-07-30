@@ -10,3 +10,5 @@
 !/shadow-dom/.gitignore
 !/svg-creation/
 !/svg-creation/.gitignore
+!/shadow-struct/
+!/shadow-struct/.gitignore

@@ -8,7 +8,8 @@
     "test": "pnpm -r test",
     "clean": "pnpm -r clean",
     "publish:test": "pnpm publish -r --dry-run --no-git-checks",
-    "publish:modules": "pnpm publish -r --no-git-checks --access public"
+    "publish:modules": "pnpm publish -r --no-git-checks --access public",
+    "example:shadow-struct": "pnpm --filter example-dom-shadow-struct dev"
   },
   "homepage": "https://simplybuilder.github.io",
   "repository": {
@@ -40,6 +41,7 @@
     "rollup": "^4.62.2",
     "jsdom": "^26.0.0",
     "typescript": "^5.7.0",
+    "vite": "^6.0.0",
     "vitest": "^3.0.0"
   }
 }

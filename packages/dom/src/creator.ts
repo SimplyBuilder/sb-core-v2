@@ -12,8 +12,6 @@ import type { ShadowConfig, CreateHTMLElementOptions, CreateSVGElementOptions } 
 /**
  * Attaches a shadow root to an HTML element with the specified mode.
  *
- * @private
- * @ignore
  * @function attachShadow
  * @param {HTMLElement} host - The element to attach the shadow root to.
  * @param {'open'|'closed'} mode - The shadow DOM mode.
@@ -28,14 +26,12 @@ function attachShadow(host: HTMLElement, mode: 'open' | 'closed'): ShadowRoot {
  * String mode creates a shadow root with that mode ('open'/'closed').
  * Object mode can additionally include `styles` via CSSStyleSheet.
  *
- * @private
- * @ignore
  * @function createShadowFromConfig
  * @param {HTMLElement} host - The element to attach the shadow root to.
  * @param {ShadowConfig} shadow - Shadow configuration (string or object with mode/styles).
  * @returns {ShadowRoot|undefined} The created shadow root, or undefined on failure.
  */
-function createShadowFromConfig(host: HTMLElement, shadow: ShadowConfig): ShadowRoot | undefined {
+export function createShadowFromConfig(host: HTMLElement, shadow: ShadowConfig): ShadowRoot | undefined {
   if (typeof shadow === 'string') {
     return attachShadow(host, shadow as 'open' | 'closed');
   }
@@ -78,8 +74,8 @@ function applyAttributes(element: HTMLElement | SVGElement, data: CreateHTMLElem
 
 /**
  * Creates an HTML element and appends it to a parent.
- * Supports attribute assignment, dataset configuration with automatic
- * store registration, and optional shadow DOM creation.
+ * Supports attribute assignment and dataset configuration with automatic
+ * store registration.
  *
  * @function createHTMLElement
  * @param {Object} [options] - Element creation options.
@@ -88,23 +84,17 @@ function applyAttributes(element: HTMLElement | SVGElement, data: CreateHTMLElem
  * @param {string} options.element.type - HTML tag name (e.g., 'div', 'button').
  * @param {Array} [options.element.attr] - Array of {name, value} attribute pairs.
  * @param {Array} [options.element.dataset] - Array of {name, value} dataset pairs.
- * @param {ShadowConfig} [options.shadow] - Shadow DOM configuration.
- * @returns {HTMLElement|ShadowRoot|undefined} The created element, shadow root, or undefined on error.
+ * @returns {HTMLElement|undefined} The created element, or undefined on error.
  */
-export function createHTMLElement(data: CreateHTMLElementOptions = {} as CreateHTMLElementOptions): HTMLElement | ShadowRoot | undefined {
+export function createHTMLElement(data: CreateHTMLElementOptions = {} as CreateHTMLElementOptions): HTMLElement | undefined {
   try {
-    const { parent, element: elementData, shadow } = data;
+    const { parent, element: elementData } = data;
     const element = document.createElement(elementData.type);
     applyAttributes(element, elementData);
 
     const targetParent = parent ?? document.body;
     if (targetParent instanceof HTMLElement || targetParent instanceof SVGElement || targetParent instanceof ShadowRoot) {
       targetParent.appendChild(element);
-    }
-
-    if (shadow && element.dataset?.state) {
-      const shadowRoot = createShadowFromConfig(element, shadow);
-      if (shadowRoot) return shadowRoot;
     }
 
     return element;

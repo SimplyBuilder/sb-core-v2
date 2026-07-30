@@ -115,6 +115,54 @@ describe('createFromStruct', () => {
     expect(el).toBeInstanceOf(SVGElement);
   });
 
+  it('creates element with shadow DOM', () => {
+    const el = createFromStruct({
+      struct: {
+        element: 'div',
+        dataset: { state: 'shadowed' },
+        shadow: 'open',
+      },
+    }) as HTMLElement;
+    expect(el).toBeInstanceOf(HTMLElement);
+    expect(el.shadowRoot).toBeInstanceOf(ShadowRoot);
+  });
+
+  it('creates children inside shadow root when parent has shadow', () => {
+    const el = createFromStruct({
+      struct: {
+        element: 'div',
+        dataset: { state: 'parent-shadow' },
+        shadow: 'open',
+        children: [
+          { element: 'h3', text: 'inside shadow' },
+          { element: 'p', text: 'also inside shadow' },
+        ],
+      },
+    }) as HTMLElement;
+    expect(el.shadowRoot).toBeInstanceOf(ShadowRoot);
+    expect(el.shadowRoot!.children.length).toBe(2);
+    expect(el.shadowRoot!.querySelector('h3')?.textContent).toBe('inside shadow');
+    expect(el.shadowRoot!.querySelector('p')?.textContent).toBe('also inside shadow');
+  });
+
+  it('creates children inside closed shadow root', () => {
+    const el = createFromStruct({
+      struct: {
+        element: 'div',
+        dataset: { state: 'closed-shadow' },
+        shadow: 'closed',
+        children: [
+          { element: 'span', text: 'inside closed shadow' },
+        ],
+        text: 'host text',
+      },
+    }) as HTMLElement;
+    expect(el).toBeInstanceOf(HTMLElement);
+    expect(el.dataset.state).toBe('closed-shadow');
+    expect(el.textContent).toBe('host text');
+    expect(el.children.length).toBe(0);
+  });
+
   it('returns false for invalid data', () => {
     expect(createFromStruct({ struct: { element: '' } })).toBe(false);
   });

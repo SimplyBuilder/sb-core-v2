@@ -6,9 +6,9 @@
  * Integrates with EventModule via the extension system for declarative event binding.
  */
 
-import { createHTMLElement, createSVGElement } from './creator.js';
+import { createHTMLElement, createSVGElement, createShadowFromConfig } from './creator.js';
 import { getAnyExtension } from './extension.js';
-import { removeElementFromStore } from './store.js';
+import { removeElementFromStore, getElementFromStore } from './store.js';
 import type { ElementStruct, CreateHTMLElementOptions, CreateSVGElementOptions } from './types.js';
 
 /**
@@ -90,17 +90,20 @@ function createFromStruct(data: { struct: ElementStruct; parent?: HTMLElement | 
           attr: attrArray,
           dataset: datasetArray,
         },
-        shadow: struct.shadow,
       };
-      const result = createHTMLElement(htmlData);
-      if (result instanceof ShadowRoot) {
-        element = result.host as Element;
-      } else {
-        element = result;
-      }
+      element = createHTMLElement(htmlData);
     }
 
     if (!element) return false;
+
+    let shadowRoot: ShadowRoot | undefined;
+    const state = (element as HTMLElement).dataset.state;
+    if (struct.shadow && state) {
+      const storedEl = getElementFromStore(state);
+      if (storedEl) {
+        shadowRoot = createShadowFromConfig(storedEl as HTMLElement, struct.shadow);
+      }
+    }
 
     if (struct.text !== undefined) {
       element.textContent = struct.text;
@@ -112,8 +115,9 @@ function createFromStruct(data: { struct: ElementStruct; parent?: HTMLElement | 
     createEventElement({ struct, element });
 
     if (struct.children && struct.children.length > 0) {
+      const parentNode = shadowRoot ?? (element as HTMLElement);
       for (const child of struct.children) {
-        createFromStruct({ struct: child, parent: element as HTMLElement });
+        createFromStruct({ struct: child, parent: parentNode as HTMLElement });
       }
     }
 

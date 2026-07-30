@@ -40,30 +40,6 @@ describe('createHTMLElement', () => {
     expect(el.dataset.role).toBe('main');
   });
 
-  it('creates element with shadow DOM when shadow is string', () => {
-    const el = createHTMLElement({
-      element: { type: 'div', dataset: [{ name: 'state', value: 'shadowEl' }] },
-      shadow: 'closed',
-    });
-    const host = el instanceof ShadowRoot ? el.host : el;
-    expect(host).toBeInstanceOf(HTMLElement);
-    if (typeof ShadowRoot !== 'undefined') {
-      expect(el).toBeInstanceOf(ShadowRoot);
-    }
-  });
-
-  it('creates element with shadow DOM when shadow is object', () => {
-    const el = createHTMLElement({
-      element: { type: 'div', dataset: [{ name: 'state', value: 'shadowObj' }] },
-      shadow: { mode: 'open' },
-    });
-    const host = el instanceof ShadowRoot ? el.host : el;
-    expect(host).toBeInstanceOf(HTMLElement);
-    if (typeof ShadowRoot !== 'undefined') {
-      expect(el).toBeInstanceOf(ShadowRoot);
-    }
-  });
-
   it('creates element and appends to parent', () => {
     const parent = document.createElement('section');
     document.body.appendChild(parent);

@@ -35,7 +35,6 @@ export interface CreateHTMLElementOptions {
     attr?: Array<{ name: string; value: string }>;
     dataset?: Array<{ name: string; value: string }>;
   };
-  shadow?: ShadowConfig;
 }
 
 export interface CreateSVGElementOptions {
