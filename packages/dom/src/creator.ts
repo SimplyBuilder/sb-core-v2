@@ -10,6 +10,68 @@ import { setData } from './dataset.js';
 import type { ShadowConfig, CreateHTMLElementOptions, CreateSVGElementOptions } from './types.js';
 
 /**
+ * A unique symbol used as a key to store the original `attachShadow` method in a secure manner.
+ * This symbol ensures that the reference is not accessible through direct property enumeration
+ * or accidental overrides.
+ *
+ * @ignore
+ * @private
+ */
+const SimplyBuilderAttachShadowSymbol: unique symbol = Symbol("Simply Builder AttachShadow Freeze");
+
+/**
+ * The type of the native `attachShadow` method captured from an isolated Realm.
+ */
+type NativeAttachShadow = typeof HTMLElement.prototype.attachShadow;
+
+/**
+ * The shape of the frozen store holding the native `attachShadow` reference.
+ */
+type SimplyBuilderAttachShadowStoreType = {
+  readonly [SimplyBuilderAttachShadowSymbol]: NativeAttachShadow;
+};
+
+/**
+ * A temporary iframe element used to access a clean reference to `HTMLElement.prototype.attachShadow`.
+ * The iframe is appended to the document's body, creating an isolated Realm
+ * to obtain the original method untouched by any potential modifications in the main document context.
+ * After obtaining the method, the iframe is removed to clean up the environment.
+ *
+ * @ignore
+ * @private
+ */
+const temporaryFrame: HTMLIFrameElement = document.createElement("iframe");
+temporaryFrame.setAttribute("style", "display:none!important");
+temporaryFrame.setAttribute("sandbox", "allow-same-origin");
+document.body.appendChild(temporaryFrame);
+
+/**
+ * Stores the original `attachShadow` method retrieved from the iframe's content window.
+ * This method is then frozen to prevent any modifications, ensuring its integrity.
+ * The storage object uses `SimplyBuilderAttachShadowSymbol` as a key for secure access.
+ *
+ * @ignore
+ * @private
+ */
+const SimplyBuilderAttachShadowStore: SimplyBuilderAttachShadowStoreType = {
+  [SimplyBuilderAttachShadowSymbol]: (temporaryFrame.contentWindow as any)["HTMLElement"].prototype.attachShadow
+};
+
+/**
+ * Immediately freezes the store to ensure the stored `attachShadow` method
+ * cannot be modified or deleted, providing an immutable reference
+ * for the duration of the application lifecycle.
+ */
+Object.freeze(SimplyBuilderAttachShadowStore);
+
+/**
+ * Removes the temporary iframe from the DOM to clean up and prevent any memory leaks.
+ * This step is crucial to ensure that the iframe does not persist in the DOM tree,
+ * which could lead to unnecessary resource usage or potential security concerns.
+ */
+temporaryFrame.parentNode!.removeChild(temporaryFrame);
+
+/**
  * Attaches a shadow root to an HTML element with the specified mode.
  *
  * @function attachShadow
@@ -18,7 +80,7 @@ import type { ShadowConfig, CreateHTMLElementOptions, CreateSVGElementOptions } 
  * @returns {ShadowRoot} The created shadow root.
  */
 function attachShadow(host: HTMLElement, mode: 'open' | 'closed'): ShadowRoot {
-  return host.attachShadow({ mode });
+  return SimplyBuilderAttachShadowStore[SimplyBuilderAttachShadowSymbol].call(host, {mode});
 }
 
 /**
@@ -78,12 +140,12 @@ function applyAttributes(element: HTMLElement | SVGElement, data: CreateHTMLElem
  * store registration.
  *
  * @function createHTMLElement
- * @param {Object} [options] - Element creation options.
- * @param {HTMLElement|ShadowRoot} [options.parent=document.body] - Parent element to append to.
- * @param {Object} options.element - Element definition with type, attr, and dataset arrays.
- * @param {string} options.element.type - HTML tag name (e.g., 'div', 'button').
- * @param {Array} [options.element.attr] - Array of {name, value} attribute pairs.
- * @param {Array} [options.element.dataset] - Array of {name, value} dataset pairs.
+ * @param {Object} [data] - Element creation options.
+ * @param {HTMLElement|ShadowRoot} [data.parent=document.body] - Parent element to append to.
+ * @param {Object} data.element - Element definition with type, attr, and dataset arrays.
+ * @param {string} data.element.type - HTML tag name (e.g., 'div', 'button').
+ * @param {Array} [data.element.attr] - Array of {name, value} attribute pairs.
+ * @param {Array} [data.element.dataset] - Array of {name, value} dataset pairs.
  * @returns {HTMLElement|undefined} The created element, or undefined on error.
  */
 export function createHTMLElement(data: CreateHTMLElementOptions = {} as CreateHTMLElementOptions): HTMLElement | undefined {
@@ -109,13 +171,13 @@ export function createHTMLElement(data: CreateHTMLElementOptions = {} as CreateH
  * Supports standard and namespaced attributes, and dataset configuration.
  *
  * @function createSVGElement
- * @param {Object} [options] - Element creation options.
- * @param {SVGElement|HTMLElement} [options.parent] - Parent element to append to.
- * @param {Object} options.element - Element definition.
- * @param {string} options.element.type - SVG tag name (e.g., 'circle', 'rect').
- * @param {Array} [options.element.attr] - Array of {name, value} attribute pairs.
- * @param {Array} [options.element.attrNS] - Array of {name, value} namespaced attribute pairs.
- * @param {Array} [options.element.dataset] - Array of {name, value} dataset pairs.
+ * @param {Object} [data] - Element creation options.
+ * @param {SVGElement|HTMLElement} [data.parent] - Parent element to append to.
+ * @param {Object} data.element - Element definition.
+ * @param {string} data.element.type - SVG tag name (e.g., 'circle', 'rect').
+ * @param {Array} [data.element.attr] - Array of {name, value} attribute pairs.
+ * @param {Array} [data.element.attrNS] - Array of {name, value} namespaced attribute pairs.
+ * @param {Array} [data.element.dataset] - Array of {name, value} dataset pairs.
  * @returns {SVGElement|undefined} The created SVG element, or undefined on error.
  */
 export function createSVGElement(data: CreateSVGElementOptions = {} as CreateSVGElementOptions): SVGElement | undefined {

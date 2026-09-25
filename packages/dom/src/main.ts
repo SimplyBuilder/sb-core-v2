@@ -14,6 +14,10 @@ import { setData } from './dataset.js';
 import { createHTMLElement, createSVGElement } from './creator.js';
 import { createFromStruct, removeElement, createEventElement } from './struct.js';
 
+if (!document.body) {
+  throw new Error('[SimplyBuilderDomModule] Module must be loaded after <body> is available.');
+}
+
 export {
   addElementToStore,
   getElementFromStore,
