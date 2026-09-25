@@ -1,5 +1,11 @@
 # Changelog
 
+## v2.0.2
+
+### 🩹 Fixes
+
+- **dom-module:** Capture native `attachShadow` from isolated iframe Realm to prevent monkey-patching of `HTMLElement.prototype.attachShadow` (9967d06)
+
 ## v2.0.1
 
 ### 🩹 Fixes
